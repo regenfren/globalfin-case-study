@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlobalFin Case — Claire's Expatriate Assignment</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --accent: #2dd4bf;
+    --accent-dark: #0d9488;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --green: #10b981;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 0 2rem;
+  }
+
+  nav .inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  nav .logo {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent-dark);
+    letter-spacing: -0.02em;
+  }
+
+  nav .links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  nav .links a {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  nav .links a:hover { color: var(--text); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    background: linear-gradient(160deg, #f0fdfa 0%, #fafafa 50%, #f5f3ff 100%);
+  }
+
+  .hero .tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-dark);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    max-width: 720px;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .scroll-hint {
+    margin-top: 3rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  section h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  section .subtitle {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+
+  .card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .card p, .card li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .card ul {
+    padding-left: 1.1rem;
+    margin-top: 0.4rem;
+  }
+
+  .card ul li { margin-bottom: 0.3rem; }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+  }
+
+  .badge.fail { background: #fef2f2; color: var(--red); }
+  .badge.warn { background: #fffbeb; color: var(--amber); }
+  .badge.ok { background: #ecfdf5; color: var(--green); }
+  .badge.info { background: #f0fdfa; color: var(--accent-dark); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 1rem;
+  }
+
+  table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  table tr:last-child td { border-bottom: none; }
+
+  .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .status-dot.red { background: var(--red); }
+  .status-dot.amber { background: var(--amber); }
+  .status-dot.green { background: var(--green); }
+
+  .insight-box {
+    background: linear-gradient(135deg, #f0fdfa, #ecfdf5);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .insight-box p {
+    font-size: 0.92rem;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.65;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.75rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+  }
+
+  .timeline-item h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-item p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .triad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 700px) {
+    .triad-grid { grid-template-columns: 1fr; }
+    nav .links { display: none; }
+  }
+
+  .triad-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .triad-card .icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .triad-card h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .triad-card .role {
+    font-size: 0.78rem;
+    color: var(--accent-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .triad-card p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .lens-table {
+    margin-top: 1.5rem;
+  }
+
+  .lens-table td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--accent-dark);
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="logo">GlobalFin Case Study</div>
+    <ul class="links">
+      <li><a href="#verdict">Verdict</a></li>
+      <li><a href="#root-causes">Root Causes</a></li>
+      <li><a href="#cq">CQ Gaps</a></li>
+      <li><a href="#hybrid">Hybrid Work</a></li>
+      <li><a href="#redesign">Redesign</a></li>
+      <li><a href="#reintegration">Reintegration</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Leadership &amp; Change Management &middot; Session 3</div>
+  <h1>Why Claire's Singapore Assignment Failed — and What GlobalFin Should Do Next</h1>
+  <p>A case analysis of expatriate failure through the lenses of culture, structure, and leadership style — with a redesigned model for APAC transformation.</p>
+  <div class="scroll-hint">&darr;&ensp;Scroll to explore</div>
+</div>
+
+<!-- 1. VERDICT -->
+<section id="verdict">
+  <div class="divider"></div>
+  <h2>1. Success or Failure?</h2>
+  <p class="subtitle">Evaluating Claire's assignment against multidimensional expatriate success criteria</p>
+
+  <table>
+    <thead>
+      <tr><th>Criterion</th><th>Outcome</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="status-dot red"></span>Task completion</td><td>Recalled at 18 months; transformation objectives unfinished</td></tr>
+      <tr><td><span class="status-dot red"></span>Cross-cultural adjustment</td><td>Failed to build trust with local APAC stakeholders</td></tr>
+      <tr><td><span class="status-dot red"></span>Relationship quality</td><td>Local teams distrusted her; weak regional network</td></tr>
+      <tr><td><span class="status-dot red"></span>Family adjustment</td><td>Integration issues compounded professional challenges</td></tr>
+      <tr><td><span class="status-dot red"></span>Knowledge transfer</td><td>Premature departure prevented meaningful exchange</td></tr>
+      <tr><td><span class="status-dot amber"></span>Organizational learning</td><td>Raw material exists — only if GlobalFin chooses to extract it</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <p><strong>Verdict:</strong> A clear failure on every standard dimension. The early recall is the most visible signal, but the deeper failures — trust, adjustment, knowledge transfer — are what made the recall inevitable.</p>
+  </div>
+</section>
+
+<!-- 2. ROOT CAUSES -->
+<section id="root-causes">
+  <div class="divider"></div>
+  <h2>2. Root Causes of Breakdown</h2>
+  <p class="subtitle">Analyzed at individual, organizational, and cultural levels</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge fail">Individual</span>
+      <h3>Personal &amp; Leadership Gaps</h3>
+      <ul>
+        <li>Insufficient cultural preparation for APAC business norms</li>
+        <li>Family stress drained energy and focus</li>
+        <li>European direct/participative style clashed with hierarchical, relationship-first expectations</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="badge warn">Organizational</span>
+      <h3>Structural Design Failures</h3>
+      <ul>
+        <li>Ambiguous mandate — unclear KPIs from HQ</li>
+        <li>Dual reporting tensions left unresolved</li>
+        <li>No local mentor or cultural sponsor on the ground</li>
+        <li>Hybrid work used as default for a presence-dependent role</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="badge info">Cultural</span>
+      <h3>The Expatriate Paradox</h3>
+      <ul>
+        <li>HQ trusted Claire for sharing corporate culture — locals distrusted her for representing foreign control</li>
+        <li>European directness vs. APAC indirectness</li>
+        <li>Transformation mandate seen as imposition, not collaboration</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3. CQ GAPS -->
+<section id="cq">
+  <div class="divider"></div>
+  <h2>3. CQ Dimensions Insufficiently Mobilized</h2>
+  <p class="subtitle">Where Claire's Cultural Intelligence fell short (Earley &amp; Ang, 2003)</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge warn">Motivation</span>
+      <h3>CQ Drive</h3>
+      <p>Likely had career-driven (extrinsic) motivation but lacked the intrinsic curiosity and self-efficacy for sustained cross-cultural engagement. Family stress further eroded persistence.</p>
+    </div>
+    <div class="card">
+      <span class="badge fail">Critical Gap</span>
+      <h3>CQ Knowledge</h3>
+      <p>Lacked deep understanding of APAC cultural systems — hierarchy norms, relationship-building rituals, indirect communication. Misread silence, resistance, and stakeholder dynamics.</p>
+    </div>
+    <div class="card">
+      <span class="badge fail">Critical Gap</span>
+      <h3>CQ Strategy</h3>
+      <p>Failed to pause, reflect, and test assumptions. Did not map local power dynamics or adjust approach based on cultural cues. Premature judgment of stakeholder behavior.</p>
+    </div>
+    <div class="card">
+      <span class="badge warn">Behavioral</span>
+      <h3>CQ Action</h3>
+      <p>Did not adapt communication style (directness, pace, formality) or leadership behaviors to local expectations. Good intentions without behavioral flexibility still create friction.</p>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>Key finding:</strong> CQ Knowledge and CQ Strategy were the most critical gaps. Without them, Claire could not accurately read the environment or plan culturally appropriate responses — making CQ Drive and CQ Action ineffective regardless.</p>
+  </div>
+</section>
+
+<!-- 4. HYBRID WORK -->
+<section id="hybrid">
+  <div class="divider"></div>
+  <h2>4. How Hybrid Work Exacerbated Complexity</h2>
+  <p class="subtitle">Remote expatriation is a contradiction in high-context cultures</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Trust-Building Blocked</h3>
+      <p>In APAC cultures, trust is built through presence — shared meals, informal interaction. Video calls cannot replicate this relational depth.</p>
+    </div>
+    <div class="card">
+      <h3>Cultural Cues Lost</h3>
+      <p>Non-verbal signals (hesitation, deference, discomfort) are invisible or muted on screens. CQ Strategy depends on reading these cues.</p>
+    </div>
+    <div class="card">
+      <h3>Isolation Amplified</h3>
+      <p>Already an outsider as an expat, hybrid work deepened Claire's social and professional isolation from local teams.</p>
+    </div>
+    <div class="card">
+      <h3>Time Zone Fragmentation</h3>
+      <p>Leading across APAC remotely meant asynchronous, shallow communication — not the deep, synchronous dialogue transformation requires.</p>
+    </div>
+    <div class="card">
+      <h3>HQ Alignment Blurred</h3>
+      <p>Remote work erased boundaries between oversight and autonomy, worsening the already unclear mandate.</p>
+    </div>
+    <div class="card">
+      <h3>Accountability Gaps</h3>
+      <p>Neither HQ nor local teams could directly observe Claire's efforts, making performance assessment impressionistic.</p>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <p><strong>Core insight:</strong> You cannot lead transformation remotely in environments where leadership legitimacy is earned through physical presence and relationship depth. Hybrid expatriation set Claire up for failure before she started.</p>
+  </div>
+</section>
+
+<!-- 5. REDESIGN -->
+<section id="redesign">
+  <div class="divider"></div>
+  <h2>5. Redesigned APAC Leadership Model</h2>
+  <p class="subtitle">A distributed leadership triad — blending expat, local, and virtual roles</p>
+
+  <div class="triad-grid">
+    <div class="triad-card">
+      <div class="icon">&#9670;</div>
+      <h4>APAC Transformation Lead</h4>
+      <div class="role">Local &middot; On-ground &middot; Full-time</div>
+      <p>Senior local hire with deep APAC networks and existing stakeholder trust. Owns day-to-day execution.</p>
+    </div>
+    <div class="triad-card">
+      <div class="icon">&#9671;</div>
+      <h4>HQ Strategic Liaison</h4>
+      <div class="role">HQ &middot; Virtual + quarterly visits</div>
+      <p>Experienced HQ leader who translates corporate strategy for regional context. Ensures alignment without micromanagement.</p>
+    </div>
+    <div class="triad-card">
+      <div class="icon">&#9674;</div>
+      <h4>Expat Advisor</h4>
+      <div class="role">Short rotation (6–12 mo) &middot; On-ground</div>
+      <p>High-CQ expat focused on knowledge transfer and coaching. Advisory, not commanding. Time-limited by design.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h3>Design Principles</h3>
+    <ul>
+      <li><strong>Local-first leadership</strong> — legitimacy and trust come from within, not from HQ</li>
+      <li><strong>Expats as coaches, not commanders</strong> — capability building over line management</li>
+      <li><strong>Structured virtual layer</strong> — cadenced check-ins, not ad-hoc hybrid oversight</li>
+      <li><strong>Joint KPIs</strong> — shared accountability between local lead and HQ liaison</li>
+      <li><strong>CQ training for all</strong> — including virtual HQ leaders engaging with APAC teams</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 6. REINTEGRATION -->
+<section id="reintegration">
+  <div class="divider"></div>
+  <h2>6. Reintegrating Claire &amp; Extracting Learning</h2>
+  <p class="subtitle">Treating this as a system failure, not a personal one</p>
+
+  <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+    <div class="card">
+      <span class="badge ok">For Claire</span>
+      <h3>Individual Reintegration</h3>
+      <ul>
+        <li><strong>Facilitated debrief</strong> — after-action review, not a blame session</li>
+        <li><strong>Career continuity</strong> — role leveraging APAC exposure (e.g., global mobility design lead)</li>
+        <li><strong>Targeted CQ coaching</strong> — position the experience as growth</li>
+        <li><strong>Peer connection</strong> — link with other returned expats to normalize the experience</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="badge ok">For GlobalFin</span>
+      <h3>Organizational Learning</h3>
+      <ul>
+        <li><strong>Process audit</strong> — selection, preparation, mandate design, support structures</li>
+        <li><strong>Policy update</strong> — mandatory cultural training, family support, local mentorship</li>
+        <li><strong>Expatriate knowledge base</strong> — structured learnings for future assignees</li>
+        <li><strong>Board visibility</strong> — expat failure as strategic risk, not HR footnote</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 2.5rem; margin-bottom: 0.75rem;">Action Plan Timeline</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>Immediate</h4>
+      <p>Debrief Claire. Stabilize APAC hub with interim local leadership.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>0–3 Months</h4>
+      <p>Audit global mobility process. Redesign APAC leadership model. Launch CQ training program.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>3–12 Months</h4>
+      <p>Deploy distributed leadership triad. Pilot new expatriate preparation framework. Integrate learnings into HR policy.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Ongoing</h4>
+      <p>Measure expat success multidimensionally. Create feedback loops between returned expats and global mobility design.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section id="summary">
+  <div class="divider"></div>
+  <h2>Summary: Three Lenses</h2>
+  <p class="subtitle">What went wrong, what should have been done, and the path forward</p>
+
+  <table class="lens-table">
+    <thead>
+      <tr><th>Lens</th><th>What Went Wrong</th><th>What Should Have Been Done</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cultural</td>
+        <td>Claire lacked CQ Knowledge &amp; Strategy; couldn't read APAC dynamics; expat paradox created built-in resistance</td>
+        <td>Pre-departure CQ training; local mentor/sponsor; relationship-building time before transformation mandate</td>
+      </tr>
+      <tr>
+        <td>Structural</td>
+        <td>Unclear mandate; dual reporting; no support architecture; hybrid default for a presence-dependent role</td>
+        <td>Clear KPIs; local co-lead; structured HQ-subsidiary interface; presence-first design</td>
+      </tr>
+      <tr>
+        <td>Leadership</td>
+        <td>European direct/participative style clashed with APAC hierarchical, relationship-first expectations</td>
+        <td>Adaptive leadership coaching; style assessment pre-departure; behavioral flexibility development</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  Leadership &amp; Change Management &middot; Session 3 &middot; GlobalFin Expatriate Case Study
+</footer>
+
+</body>
+</html>
