@@ -259,6 +259,31 @@
     line-height: 1.65;
   }
 
+  .question-prompt {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 2.5rem;
+  }
+
+  .question-prompt::before {
+    content: '\201C';
+    position: absolute;
+    left: 0.85rem;
+    top: 0.5rem;
+    font-size: 1.8rem;
+    color: var(--accent);
+    font-style: normal;
+    line-height: 1;
+  }
+
   .timeline {
     position: relative;
     padding-left: 2rem;
@@ -398,6 +423,7 @@
   <div class="divider"></div>
   <h2>1. Success or Failure?</h2>
   <p class="subtitle">Evaluating Claire's assignment against multidimensional expatriate success criteria</p>
+  <div class="question-prompt">Using multidimensional expatriate success criteria, was Claire's assignment a success or failure? Explain.</div>
 
   <table>
     <thead>
@@ -423,6 +449,7 @@
   <div class="divider"></div>
   <h2>2. Root Causes of Breakdown</h2>
   <p class="subtitle">Analyzed at individual, organizational, and cultural levels</p>
+  <div class="question-prompt">Identify root causes of the assignment breakdown at individual, organizational, and cultural levels.</div>
 
   <div class="card-grid">
     <div class="card">
@@ -461,6 +488,7 @@
   <div class="divider"></div>
   <h2>3. CQ Dimensions Insufficiently Mobilized</h2>
   <p class="subtitle">Where Claire's Cultural Intelligence fell short (Earley &amp; Ang, 2003)</p>
+  <div class="question-prompt">Which CQ Claire insufficiently mobilized (Cultural Intelligence) dimensions?</div>
 
   <div class="card-grid">
     <div class="card">
@@ -495,6 +523,7 @@
   <div class="divider"></div>
   <h2>4. How Hybrid Work Exacerbated Complexity</h2>
   <p class="subtitle">Remote expatriation is a contradiction in high-context cultures</p>
+  <div class="question-prompt">How did mixing expatriation with hybrid work exacerbate complexity?</div>
 
   <div class="card-grid">
     <div class="card">
@@ -533,6 +562,7 @@
   <div class="divider"></div>
   <h2>5. Redesigned APAC Leadership Model</h2>
   <p class="subtitle">A distributed leadership triad — blending expat, local, and virtual roles</p>
+  <div class="question-prompt">Redesign the APAC transformation leadership model (mix of expats, locals, virtual leadership).</div>
 
   <div class="triad-grid">
     <div class="triad-card">
@@ -572,6 +602,7 @@
   <div class="divider"></div>
   <h2>6. Reintegrating Claire &amp; Extracting Learning</h2>
   <p class="subtitle">Treating this as a system failure, not a personal one</p>
+  <div class="question-prompt">What should GlobalFin do to reintegrate Claire and extract organizational learning?</div>
 
   <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
     <div class="card">
