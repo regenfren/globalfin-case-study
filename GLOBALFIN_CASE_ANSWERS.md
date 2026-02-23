@@ -10,7 +10,7 @@ GlobalFin sent Claire, a European high-potential manager, to Singapore to lead a
 
 ## 1. Was Claire's Assignment a Success or Failure?
 
-Using **multidimensional expatriate success criteria** (Kraimer & Wayne, 2004; Shaffer et al., 2006), Claire's assignment was a **clear failure** across nearly every dimension:
+Using **multidimensional expatriate success criteria**, Claire's assignment was a **clear failure** across nearly every dimension:
 
 | Criterion | Outcome |
 |---|---|
